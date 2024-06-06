@@ -1,0 +1,98 @@
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    color: #234B68;
+    font-weight: bold;
+}
+
+img {
+    display: block;
+    margin: 0 auto 50px;
+    max-width: 100%;
+    height: auto;
+    padding-bottom: 50px;
+}
+
+input {
+    border: 2px solid #234B68;
+    height: 30px;
+    padding: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px #4B5563;
+}
+
+h1 {
+    padding-bottom: 50px;
+}
+
+.euro::after, .taux::after, .remboursement::after {
+    font-weight: bold;
+    background-color: #234B68;
+    color: white;
+    position: absolute;
+    right: -49px;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    border-radius: 0 7px 7px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px #4B5563;
+
+}
+
+.euro::after {
+    content: '€';
+}
+
+.taux::after {
+    content: '%';
+}
+
+.remboursement::after {
+    content: 'ans(s)';
+}
+
+.grandCarre {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    border-color: #234B68;
+    margin: 0 auto;
+    padding: 20px 150px 20px 150px;
+    max-width: 800px;
+    box-sizing: border-box;
+    box-shadow: 0 5px 8px #4B5563;
+}
+
+.formulaire {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+button {
+    margin-top: 50px;
+    padding: 10px 20px;
+    background-color: #234B68;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 250px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1e3b56;
+
+}
+
+.placeholder{
+    color : #4B5563;
+}
