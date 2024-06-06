@@ -26,16 +26,18 @@
             </div>
             <div class="taux formulaire ">
                 <label for="taux">Taux nominal</label>
-                <input class="afterInput" id="taux" type="text" name="taux" placeholder="1.2" required>
+                <input class="afterInput" id="taux" type="number" name="taux" placeholder="1.2" required>
             </div>
             <div class="remboursement formulaire">
                 <label for="remboursement">Durée de remboursement</label>
-                <input class="afterInput" id="remboursement" type="text" name="remboursement" placeholder="15" required>
+                <input class="afterInput" id="remboursement" type="number" name="remboursement" placeholder="15" required>
             </div>
+            <div id="error"></div>
             <button id="button" type="submit">Calculer</button>
         </div>
-        </div>
+    </div>
     </form>
+    
     </div>
     <br>
     <div class="grandCarreTableau">
@@ -70,7 +72,11 @@
                         <td>99 492,67 €</td>
                     </tr>
                 </tbody>
+            </table>
+        <button type="submit">Télécharger en PDF</button>   
     </div>
+    
 </body>
+
 </html>
 <script src="main.js"></script>
