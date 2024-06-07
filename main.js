@@ -1,66 +1,76 @@
-function gestionErreurs() {
+function erreurMontant(montant){
+    var idMontant = document.getElementById("montant");
+    console.log(montant)
 
-    var data = ['montant', 'taux', 'remboursement'];
-    var allValid = true;
-    var tabValue = []
-    var messageElement = document.getElementById('error');
-    messageElement.innerHTML = '';
+    if(montant === "" || isNaN(montant)){
+        idMontant.classList.add('invalid');
+        return false;
+    }
+    else{
+        idMontant.classList.remove('invalid');
+        return true;
+    }
+}
+function erreurTaux(taux){
 
-    data.forEach(function(champs) {
-        var champsValue = document.getElementById(champs).value.trim();
-        var errorMessage = '';
+    var idTaux = document.getElementById("taux");
+    var taux = parseFloat(taux);
+    if(taux === "" || isNaN(taux)){
+        idTaux.classList.add('invalid');
+        return false;
+    }
+    else if ((isNaN(taux) || taux < 0 || taux > 100)) {
+        idTaux.classList.add('invalid');
+        return false;
+    }
+    else return true;
+} 
+function erreurDuree(duree){
 
-        if (champsValue === "") {
-            allValid = false;
-            errorMessage = 'Veuillez remplir tous les champs !';
-            document.getElementById(champs).classList.add('invalid');
-        } else {
-            document.getElementById(champs).classList.remove('invalid');
-            
-            if (champs === 'montant') {
+    var idDuree = document.getElementById("duree");
 
-                // Vérifier si 'montant' est au format 00,00 €
-                
-                var montantRegex = /^\d+(\,\d{1,2})?$/;
-                if (!montantRegex.test(champsValue)) {
-                    allValid = false;
-                    errorMessage = 'Veuillez rentrer le prix en euros (00,00)';
-                    document.getElementById(champs).classList.add('invalid');
-                }
-                else {
-                    tabValue[0] = champsValue;
-                }
-            } else if (champs === 'taux') {
+    if(duree === "" || isNaN(duree)){
+        idDuree.classList.add('invalid');
+        return false;
+    }
+    else if (duree <= 0 || duree.includes('.')) {
+        idDuree.classList.add('invalid');
+        return false;
+    }
+    else return true;
+} 
+function messageErreur(montantErreur, tauxErreur, dureeErreur){
 
-                var tauxValue = parseFloat(champsValue);
-                if (isNaN(tauxValue) || tauxValue < 0 || tauxValue > 100) {
-                    allValid = false;
-                    errorMessage = 'Veuillez entrer un pourcentage valide (0-100)';
-                    document.getElementById(champs).classList.add('invalid');
-                }
-                else {
-                    tabValue[1] = champsValue;
-                }
-            } else if (champs === 'remboursement') {
+    var errorMessage = ''
+    var error = document.getElementById("error");
+    var allValid
+    if(montantErreur === false){
+        errorMessage += 'montant, '
+    }
+    if(tauxErreur === false){
+        errorMessage += 'taux, '
+    }
+    if(dureeErreur === false){
+        errorMessage += 'duree, '
+    }
+    if (errorMessage) {
+        error.innerHTML = '<p> veuillez remplir les champs : ' + errorMessage + ' avec des données valides !</p>';
+        return allValid = false
+    }
+    else{
+        return allValid = true
+    }
 
-                var remboursementValue = parseInt(champsValue, 10);
-                if (isNaN(remboursementValue) || remboursementValue <= 0 || champsValue.includes('.')) {
-                    allValid = false;
-                    errorMessage = 'Veuillez entrer un nombre d\'années valide (nombre entier positif)';
-                    document.getElementById(champs).classList.add('invalid');
-                }
-                else {
-                    tabValue[2] = champsValue;
-                }
-            }
-        }
-        if (errorMessage) {
-            messageElement.innerHTML = '<p>' + errorMessage + '</p>';
-        }
-    });
-    tabValue[3] = allValid;
+}
+function gestionErreurs(champsValue) {
     
-    return tabValue ;
+    var montantErreur = erreurMontant(champsValue[0])
+    var tauxErreur = erreurTaux(champsValue[1])
+    var dureeErreur = erreurDuree(champsValue[2])
+
+    var allValid = messageErreur(montantErreur, tauxErreur, dureeErreur)
+
+    return allValid;
 }
 
 function calculPret(tabValue){
@@ -74,9 +84,7 @@ function calculPret(tabValue){
     var tbody = document.querySelector('tbody');
     var interetParMois = (taux/12)/100;
     var totalRestant = soldeInitial;
-    var echeance =(montant*((interetParMois*((1+interetParMois)**duree))/(((1+interetParMois)**duree)-1))).toFixed(2);
-    let pdf;
-    tbody.innerHTML = "<tr></tr>";
+    var echeance =(montant*((interetParMois*((1+interetParMois)**duree))/(((1+interetParMois)**duree)-1))).toFixed(2);    tbody.innerHTML = "<tr></tr>";
 
     for(var i = 1; i <= duree ; i++){  
 
@@ -114,19 +122,29 @@ function calculPret(tabValue){
 
     }
 }
+
+function valeursForm(){
+    var data = ['montant', 'taux', 'duree'];
+    var champsValue = [];
+    
+    for(i = 0 ; i < 3; i++) {
+        champsValue[i] = document.getElementById(data[i]).value.trim();
+    }
+    return champsValue;
+}
+
 var button = document.getElementById('button')
 
 button.addEventListener('click', function(e) {
     e.preventDefault();
 
-    var tabValue = gestionErreurs();
-    var allValid = tabValue[3];
+    var champsValue = valeursForm()
+    var allValid = gestionErreurs(champsValue);
 
     if (allValid) {
-        calculPret(tabValue);
+        calculPret(champsValue);
         document.querySelector('.grandCarreTableau').style.display = 'block';
     }
-    
 });
 
 var exportPDF = document.getElementById('export-pdf');

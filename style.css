@@ -128,12 +128,6 @@ th {
     border-color: #FF822E;
 }
 
-.valid{
-    border-color: #1e3b56;
-}
-
-
-
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
