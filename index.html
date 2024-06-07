@@ -42,7 +42,7 @@
     <br>
     <div class="grandCarreTableau">
         <h1>Tableau d'amortissement</h1>
-            <table>
+            <table id="tableauPret">
                 <thead>
                     <tr>
                         <th>Mois</th>
@@ -53,30 +53,15 @@
                         <th>Solde restant</th>
                     </tr>
                 </thead>
-
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>100 000,00 €</td>
-                        <td>607,33 €</td>
-                        <td>100,00 €</td>
-                        <td>507,33 €</td>
-                        <td>99 492,67 €</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>100 000,00 €</td>
-                        <td>607,33 €</td>
-                        <td>100,00 €</td>
-                        <td>507,33 €</td>
-                        <td>99 492,67 €</td>
-                    </tr>
                 </tbody>
             </table>
-        <button type="submit">Télécharger en PDF</button>   
+        <button id="export-pdf">Télécharger en PDF</button>   
     </div>
     
 </body>
 
 </html>
 <script src="main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.21/jspdf.plugin.autotable.min.js"></script>
