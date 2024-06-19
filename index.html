@@ -12,7 +12,9 @@
     <title>Calculatrice de prêt</title>
 </head>
 
-<img src="logo_microlead.png" alt="">
+<header>
+    <img src="logo_microlead.png" alt="">
+</header>
 
 <body>
     <div class="grandCarreForm">
@@ -42,7 +44,7 @@
     <br>
     <div class="grandCarreTableau">
         <h1>Tableau d'amortissement</h1>
-            <table id="tableauPret">
+            <table  id="pdf-content">
                 <thead>
                     <tr>
                         <th>Mois</th>
@@ -58,10 +60,22 @@
             </table>
         <button id="export-pdf">Télécharger en PDF</button>   
     </div>
-    
+    <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <script>
+        document.getElementById('export-pdf').addEventListener('click', function () {
+            var element = document.getElementById('pdf-content');
+            var opt = {
+                margin:       1,
+                pagebreak:    { mode: ['css', 'avoid-all'] },
+                filename:     'tableau-pret.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        });
+    </script>
 </body>
-
 </html>
-<script src="main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.21/jspdf.plugin.autotable.min.js"></script>
+

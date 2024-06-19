@@ -1,6 +1,5 @@
 function erreurMontant(montant){
     var idMontant = document.getElementById("montant");
-    console.log(montant)
 
     if(montant === "" || isNaN(montant)){
         idMontant.classList.add('invalid');
@@ -23,7 +22,10 @@ function erreurTaux(taux){
         idTaux.classList.add('invalid');
         return false;
     }
-    else return true;
+    else {
+        idTaux.classList.remove('invalid');
+        return true;
+    }
 } 
 function erreurDuree(duree){
 
@@ -37,8 +39,11 @@ function erreurDuree(duree){
         idDuree.classList.add('invalid');
         return false;
     }
-    else return true;
-} 
+    else {
+        idDuree.classList.remove('invalid');
+        return true;
+    } 
+}
 function messageErreur(montantErreur, tauxErreur, dureeErreur){
 
     var errorMessage = ''
@@ -58,9 +63,9 @@ function messageErreur(montantErreur, tauxErreur, dureeErreur){
         return allValid = false
     }
     else{
+        error.innerHTML = '<p> </p>';
         return allValid = true
     }
-
 }
 function gestionErreurs(champsValue) {
     
@@ -138,7 +143,7 @@ var button = document.getElementById('button')
 button.addEventListener('click', function(e) {
     e.preventDefault();
 
-    var champsValue = valeursForm()
+    var champsValue = valeursForm();
     var allValid = gestionErreurs(champsValue);
 
     if (allValid) {
@@ -147,19 +152,5 @@ button.addEventListener('click', function(e) {
     }
 });
 
-var exportPDF = document.getElementById('export-pdf');
-exportPDF.addEventListener('click', () => {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
 
-    doc.autoTable({
-        html: '#tableauPret',
-        theme: 'striped',
-        styles: { 
-            fontSize: 10 
-        }
-    });
-
-    doc.save('tableau_pret.pdf');
-});
 
