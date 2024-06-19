@@ -47,6 +47,7 @@ function erreurDuree(duree){
 function messageErreur(montantErreur, tauxErreur, dureeErreur){
 
     var errorMessage = ''
+    
     var error = document.getElementById("error");
     var allValid
     if(montantErreur === false){
